@@ -54,7 +54,6 @@ Open the Admin Interface in your browser: [http://127.0.0.1:8000/admin/](http://
 | Name | Role |
 |------|------|
 | John Erwin Anquillano | Backend & Admin Interface |
-| Julius Arnisto | Data & Testing |
 
 ## License
 MIT License
