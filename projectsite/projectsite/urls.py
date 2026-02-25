@@ -16,13 +16,51 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from studentorg.views import HomePageView, OrganizationList, OrganizationCreateView, OrganizationUpdateView
 from studentorg import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    # Home
     path('', views.HomePageView.as_view(), name='home'),
-    path('organization_list', OrganizationList.as_view(), name='organization-list'),
-    path('organization_list/add', OrganizationCreateView.as_view(), name='organization-add'),
-    path('organization_list/<pk>',OrganizationUpdateView.as_view(), name='organization-update'),
+
+    # ---------------------------
+    # Organization URLs
+    # ---------------------------
+    path('organization_list', views.OrganizationList.as_view(), name='organization-list'),
+    path('organization_list/add', views.OrganizationCreateView.as_view(), name='organization-add'),
+    path('organization_list/<pk>', views.OrganizationUpdateView.as_view(), name='organization-update'),
+    path('organization_list/<pk>/delete', views.OrganizationDeleteView.as_view(), name='organization-delete'),
+
+    # ---------------------------
+    # OrgMember URLs
+    # ---------------------------
+    path('orgmember_list', views.OrgMemberList.as_view(), name='orgmember-list'),
+    path('orgmember_list/add', views.OrgMemberCreateView.as_view(), name='orgmember-add'),
+    path('orgmember_list/<pk>', views.OrgMemberUpdateView.as_view(), name='orgmember-update'),
+    path('orgmember_list/<pk>/delete', views.OrgMemberDeleteView.as_view(), name='orgmember-delete'),
+
+    # ---------------------------
+    # Student URLs
+    # ---------------------------
+    path('student_list', views.StudentList.as_view(), name='student-list'),
+    path('student_list/add', views.StudentCreateView.as_view(), name='student-add'),
+    path('student_list/<pk>', views.StudentUpdateView.as_view(), name='student-update'),
+    path('student_list/<pk>/delete', views.StudentDeleteView.as_view(), name='student-delete'),
+
+    # ---------------------------
+    # College URLs
+    # ---------------------------
+    path('college_list', views.CollegeList.as_view(), name='college-list'),
+    path('college_list/add', views.CollegeCreateView.as_view(), name='college-add'),
+    path('college_list/<pk>', views.CollegeUpdateView.as_view(), name='college-update'),
+    path('college_list/<pk>/delete', views.CollegeDeleteView.as_view(), name='college-delete'),
+
+    # ---------------------------
+    # Program URLs
+    # ---------------------------
+    path('program_list', views.ProgramList.as_view(), name='program-list'),
+    path('program_list/add', views.ProgramCreateView.as_view(), name='program-add'),
+    path('program_list/<pk>', views.ProgramUpdateView.as_view(), name='program-update'),
+    path('program_list/<pk>/delete', views.ProgramDeleteView.as_view(), name='program-delete'),
 ]
