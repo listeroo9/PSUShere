@@ -13,12 +13,12 @@
                         <div class="card-title">List of Organizations</div>
                         <div class="card-category">Page Subtitle</div>
                     </div>
-                    <br />
+                    <br/>
                     <div class="row">
                         <div class="col-md-6">
-                            <form class="navbar-form nav-search mr-md-3" action="">
+                            <form class="navbar-form nav-search mr-md-3" action="{% url 'organization-list' %}">
                                 <div class="input-group">
-                                    <input type="text" placeholder="Search ..." class="form-control" />
+                                    <input type="text" placeholder="Search ..." class="form-control" name="q"/>
                                     <div class="input-group-append">
                                         <span class="input-group-text">
                                             <i class="la la-search search-icon"></i>
@@ -33,7 +33,22 @@
                                 Add Organization
                             </a>
                         </div>
-                    </div>
+                        <div class="col-md-12 mb-3">
+                            <form method="get" class="row g-2 align-items-center">
+                                <div class="col-auto">
+                                    <label for="sortSelect" class="col-form-label">Sort by</label>
+                                </div>
+                                <div class="col-auto">
+                                    <select class="form-control form-control-sm" id="sortSelect" name="sort_by">
+                                        <option value="college__college_name" {% if request.GET.sort_by == "college__college_name" %}selected{% endif %}>College</option>
+                                        <option value="name" {% if request.GET.sort_by == "name" %}selected{% endif %}>Name</option>
+                                    </select>
+                                </div>
+                                <div class="col-auto">
+                                    <button type="submit" class="btn btn-primary btn-sm btn-rounded">Apply</button>
+                                </div>
+                            </form>
+                        </div>
                     <div class="card-body">
                         <table class="table table-striped mt-3">
                             <thead>
