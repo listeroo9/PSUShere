@@ -14,41 +14,52 @@
                         <div class="card-category">Page Subtitle</div>
                     </div>
                     <br/>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <form class="navbar-form nav-search mr-md-3" action="{% url 'organization-list' %}">
+
+                    <!-- 🔥 ONE FORM FOR SEARCH + SORT -->
+                    <form method="get" action="{% url 'organization-list' %}">
+                        <div class="row">
+                            <!-- Search -->
+                            <div class="col-md-4">
                                 <div class="input-group">
-                                    <input type="text" placeholder="Search ..." class="form-control" name="q"/>
+                                    <input 
+                                        type="text" 
+                                        placeholder="Search ..." 
+                                        class="form-control" 
+                                        name="q"
+                                        value="{{ request.GET.q }}"
+                                    />
                                     <div class="input-group-append">
                                         <span class="input-group-text">
                                             <i class="la la-search search-icon"></i>
                                         </span>
                                     </div>
                                 </div>
-                            </form>
-                        </div>
+                            </div>
 
-                        <div class="col-md-6 text-right">
-                            <a href="{% url 'organization-add' %}" class="btn btn-success btn-rounded">
-                                Add Organization
-                            </a>
-                        </div>
-                        <div class="col-md-12 mb-3">
-                            <form method="get" class="row g-2 align-items-center">
-                                <div class="col-auto">
-                                    <label for="sortSelect" class="col-form-label">Sort by</label>
-                                </div>
-                                <div class="col-auto">
-                                    <select class="form-control form-control-sm" id="sortSelect" name="sort_by">
+                            <!-- Sort -->
+                            <div class="col-md-4">
+                                <div class="input-group">
+                                    <select class="form-control form-control-sm" name="sort_by">
                                         <option value="college__college_name" {% if request.GET.sort_by == "college__college_name" %}selected{% endif %}>College</option>
                                         <option value="name" {% if request.GET.sort_by == "name" %}selected{% endif %}>Name</option>
                                     </select>
+                                    <div class="input-group-append">
+                                        <button type="submit" class="btn btn-primary btn-sm btn-rounded">
+                                            Apply
+                                        </button>
+                                    </div>
                                 </div>
-                                <div class="col-auto">
-                                    <button type="submit" class="btn btn-primary btn-sm btn-rounded">Apply</button>
-                                </div>
-                            </form>
+                            </div>
+
+                            <!-- Add Button -->
+                            <div class="col-md-4 text-right">
+                                <a href="{% url 'organization-add' %}" class="btn btn-success btn-rounded">
+                                    Add Organization
+                                </a>
+                            </div>
                         </div>
+                    </form>
+
                     <div class="card-body">
                         <table class="table table-striped mt-3">
                             <thead>

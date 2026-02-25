@@ -13,27 +13,56 @@
                         <div class="card-title">List of Students</div>
                         <div class="card-category">Page Subtitle</div>
                     </div>
-                    <br />
-                    <div class="row">
-                        <div class="col-md-6">
-                            <form class="navbar-form nav-search mr-md-3" action="">
+                    <br/>
+
+                    <!-- 🔥 ONE FORM FOR SEARCH + SORT -->
+                    <form method="get" action="{% url 'student-list' %}">
+                        <div class="row">
+                            <!-- Search -->
+                            <div class="col-md-4">
                                 <div class="input-group">
-                                    <input type="text" placeholder="Search ..." class="form-control" />
+                                    <input 
+                                        type="text" 
+                                        placeholder="Search ..." 
+                                        class="form-control" 
+                                        name="q"
+                                        value="{{ request.GET.q }}"
+                                    />
                                     <div class="input-group-append">
                                         <span class="input-group-text">
                                             <i class="la la-search search-icon"></i>
                                         </span>
                                     </div>
                                 </div>
-                            </form>
-                        </div>
+                            </div>
 
-                        <div class="col-md-6 text-right">
-                            <a href="{% url 'student-add' %}" class="btn btn-success btn-rounded">
-                                Add Student
-                            </a>
+                            <!-- Sort -->
+                            <div class="col-md-4">
+                                <div class="input-group">
+                                    <select class="form-control form-control-sm" name="sort_by">
+                                        <option value="student_id" {% if request.GET.sort_by == "student_id" %}selected{% endif %}>Student ID</option>
+                                        <option value="lastname" {% if request.GET.sort_by == "lastname" %}selected{% endif %}>Lastname</option>
+                                        <option value="firstname" {% if request.GET.sort_by == "firstname" %}selected{% endif %}>Firstname</option>
+                                        <option value="middlename" {% if request.GET.sort_by == "middlename" %}selected{% endif %}>Middlename</option>
+                                        <option value="program__prog_name" {% if request.GET.sort_by == "program__prog_name" %}selected{% endif %}>Program</option>
+                                    </select>
+                                    <div class="input-group-append">
+                                        <button type="submit" class="btn btn-primary btn-sm btn-rounded">
+                                            Apply
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Add Button -->
+                            <div class="col-md-4 text-right">
+                                <a href="{% url 'student-add' %}" class="btn btn-success btn-rounded">
+                                    Add Student
+                                </a>
+                            </div>
                         </div>
-                    </div>
+                    </form>
+
                     <div class="card-body">
                         <table class="table table-striped mt-3">
                             <thead>

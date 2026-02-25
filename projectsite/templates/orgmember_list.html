@@ -13,27 +13,63 @@
                         <div class="card-title">List of Org Members</div>
                         <div class="card-category">Page Subtitle</div>
                     </div>
-                    <br />
-                    <div class="row">
-                        <div class="col-md-6">
-                            <form class="navbar-form nav-search mr-md-3" action="">
+                    <br/>
+
+                    <!-- 🔥 ONE FORM FOR SEARCH + SORT -->
+                    <form method="get" action="{% url 'orgmember-list' %}">
+                        <div class="row">
+                            <!-- Search -->
+                            <div class="col-md-4">
                                 <div class="input-group">
-                                    <input type="text" placeholder="Search ..." class="form-control" />
+                                    <input 
+                                        type="text" 
+                                        placeholder="Search ..." 
+                                        class="form-control" 
+                                        name="q"
+                                        value="{{ request.GET.q }}"
+                                    />
                                     <div class="input-group-append">
                                         <span class="input-group-text">
                                             <i class="la la-search search-icon"></i>
                                         </span>
                                     </div>
                                 </div>
-                            </form>
-                        </div>
+                            </div>
 
-                        <div class="col-md-6 text-right">
-                            <a href="{% url 'orgmember-add' %}" class="btn btn-success btn-rounded">
-                                Add Org Member
-                            </a>
+                            <!-- Sort -->
+                            <div class="col-md-4">
+                                <div class="input-group">
+                                    <select class="form-control form-control-sm" name="sort_by">
+                                        <option value="student__name" {% if request.GET.sort_by == "student__name" %}selected{% endif %}>
+                                            Student
+                                        </option>
+                                        <option value="student__program__prog_name" {% if request.GET.sort_by == "student__program__prog_name" %}selected{% endif %}>
+                                            Program
+                                        </option>
+                                        <option value="organization__name" {% if request.GET.sort_by == "organization__name" %}selected{% endif %}>
+                                            Organization
+                                        </option>
+                                        <option value="date_joined" {% if request.GET.sort_by == "date_joined" %}selected{% endif %}>
+                                            Date Joined
+                                        </option>
+                                    </select>
+                                    <div class="input-group-append">
+                                        <button type="submit" class="btn btn-primary btn-sm btn-rounded">
+                                            Apply
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Add Button -->
+                            <div class="col-md-4 text-right">
+                                <a href="{% url 'orgmember-add' %}" class="btn btn-success btn-rounded">
+                                    Add Org Member
+                                </a>
+                            </div>
                         </div>
-                    </div>
+                    </form>
+
                     <div class="card-body">
                         <table class="table table-striped mt-3">
                             <thead>
@@ -66,6 +102,7 @@
                                 {% endfor %}
                             </tbody>
                         </table>
+
                         {% include 'includes/pagination.html' %}
                     </div>
                 </div>
